@@ -26,14 +26,14 @@ from sklearn.model_selection import GridSearchCV
 from collections import OrderedDict
 import copy
 
-from MyMatplotlib import MyMatplotlib
+from AbstractModel import Model
 
 
-class MyModel:
+class MyClassifier(Model):
 
     def __init__(self):
         # 模型名
-        self.name = "主类"
+        self.name = "MyClassifier"
         # 默认采用宏平均的计算结果
         self.scoring = 'f1_macro'
         # 输出结果评分为precision、recall、f1-score、accuracy的宏平均
@@ -43,16 +43,18 @@ class MyModel:
         # 默认调参参数取值
         self.parameters = None
         # 随机种子
-        self.random_state = 150
+        self.random_state = 42
         # 分步调参字典：参数名：[参数取值list，参数得分list，最优参数取值]
         self.step_params_results = OrderedDict()
 
         # 子类初始化
+        """
         try:
             # 固定每个模型的随机种子
             self.model.set_params(**{'random_state': self.random_state})
         except:
             pass
+        """
 
     def simple_model(self, X, y, cv, scoring):
         """
