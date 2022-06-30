@@ -22,5 +22,5 @@ y = arg_dict.get('y')
 
 clf = MyRF()
 print(clf.english_name)
-result = clf.simple_model(X, y)
+result = clf.simple_model(X, y, model_save_path='./')
 print(result)
