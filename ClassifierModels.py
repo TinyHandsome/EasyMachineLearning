@@ -181,10 +181,11 @@ class MyAdaboost(MyClassifier):
     model = AdaBoostClassifier
 
 
-X, y = load_iris(return_X_y=True, as_frame=True)
-clf = MyAdaboost()
-print(clf.english_name)
-result = clf.simple_model(X, y)
-print(result)
+if __name__ == '__main__':
+    X, y = load_iris(return_X_y=True, as_frame=True)
+    clf = MyAdaboost()
+    print(clf.english_name)
+    result = clf.simple_model(X, y)
+    print(result)
 
 

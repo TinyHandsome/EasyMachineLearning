@@ -169,10 +169,11 @@ class MyXGBoost(MyRegressor):
     model = XGBRegressor
 
 
-X, y = load_boston(return_X_y=True)
-reg = MyBR()
-result = reg.simple_model(X, y)
-print(result)
+if __name__ == '__main__':
+    X, y = load_boston(return_X_y=True)
+    reg = MyBR()
+    result = reg.simple_model(X, y)
+    print(result)
 
 
 
