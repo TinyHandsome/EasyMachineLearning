@@ -10,6 +10,8 @@
 import sys
 import json
 
+from ClassifierModels import MyRF
+
 
 arg_json = sys.argv[1]
 arg_dict = json.loads(arg_json)
@@ -18,7 +20,7 @@ arg_dict = json.loads(arg_json)
 X = arg_dict.get('X')
 y = arg_dict.get('y')
 
-print(type(X[0][0]))
-print(type(y[0]))
-print(X)
-print(y)
+clf = MyRF()
+print(clf.english_name)
+result = clf.simple_model(X, y)
+print(result)
