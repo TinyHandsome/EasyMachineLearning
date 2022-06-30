@@ -21,8 +21,7 @@
         [AdaBoost参数详解](https://www.cnblogs.com/mdevelopment/p/9445090.html)
 
 """
-from AbstractModel import MyClassifier
-from sklearn.datasets import load_iris
+from model_structure.AbstractModel import MyClassifier
 
 from xgboost import XGBClassifier
 from sklearn.svm import SVC
@@ -179,13 +178,5 @@ class MyAdaboost(MyClassifier):
     ])
 
     model = AdaBoostClassifier
-
-
-if __name__ == '__main__':
-    X, y = load_iris(return_X_y=True, as_frame=True)
-    clf = MyAdaboost()
-    print(clf.english_name)
-    result = clf.simple_model(X, y)
-    print(result)
 
 

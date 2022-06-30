@@ -10,7 +10,7 @@
 import sys
 import json
 
-from ClassifierModels import MyRF
+from model_structure.ClassifierModels import MyRF
 
 
 arg_json = sys.argv[1]

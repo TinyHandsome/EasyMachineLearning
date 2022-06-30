@@ -7,8 +7,7 @@
 @desc:
 """
 
-from AbstractModel import MyRegressor
-from sklearn.datasets import load_boston
+from model_structure.AbstractModel import MyRegressor
 
 from collections import OrderedDict
 from sklearn.linear_model import LinearRegression
@@ -167,14 +166,6 @@ class MyXGBoost(MyRegressor):
         ('min_samples_split', list(range(2, 10, 1))[::-1])
     ])
     model = XGBRegressor
-
-
-if __name__ == '__main__':
-    X, y = load_boston(return_X_y=True)
-    reg = MyBR()
-    result = reg.simple_model(X, y)
-    print(result)
-
 
 
 

@@ -10,11 +10,13 @@
             1. [回归问题评价指标](https://wenku.baidu.com/view/c442b4636aeae009581b6bd97f1922791688be22.html)
 """
 
-from tkinter.tix import DirTree
-import pandas as pd
-from abc import ABCMeta, abstractclassmethod, abstractproperty
+import os
+import joblib
+from abc import ABCMeta, abstractproperty
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, mean_squared_error, r2_score, mean_absolute_error
+
+from model_structure.utils import generate_model_name
 
 
 class Model(metaclass=ABCMeta):
@@ -55,21 +57,36 @@ class Model(metaclass=ABCMeta):
     @abstractproperty
     def model_metrics(self): ...
 
-    def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None):
+
+    def modeling(self, X, y, params=None, model_save_path=None, model_save_name=None):
+        """【建模】
+        :return: 返回训练的模型
+        """
+        model = self.model(random_state=self.random_state)
+        if params is not None:
+            model.set_params(**params)
+        model.fit(X, y)
+
+        if model_save_path is not None:
+            with open(os.path.join(model_save_path, model_save_name), 'wb') as f:
+                joblib.dump(model, f)
+
+        return model
+
+
+    def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None):
         """
         用默认参数进行建模，划分数据集
         :params: 是否指定参数
+        :model_save_path: 是否保存模型，默认保存，保存的路径为当前路径
         :return: 评价指标的字典
         """
+        prefix = 'simple_model'
 
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=self.random_state)
 
-        clf = self.model(random_state=self.random_state)
-        if params is not None:
-            clf.set_params(**params)
-
-        clf.fit(X_train, y_train)
+        clf = self.modeling(X_train, y_train, params)
         y_pred = clf.predict(X_test)
 
         # true_pred = pd.DataFrame({'测试编号': range(len(y_test)), '真实值': y_test, '预测值': y_pred})
@@ -84,6 +101,9 @@ class Model(metaclass=ABCMeta):
         result = []
         for s, s_func in scoring_func:
             result.append((s, s_func(y_test, y_pred)))
+
+        # 生成当前的模型
+        self.modeling(X, y, params, model_save_path, generate_model_name(self.name, prefix))
 
         return dict(result)
 
