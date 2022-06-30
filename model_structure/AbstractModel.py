@@ -81,7 +81,7 @@ class Model(metaclass=ABCMeta):
         :model_save_path: 是否保存模型，默认保存，保存的路径为当前路径
         :return: 评价指标的字典
         """
-        prefix = 'simple_model'
+        prefix = '简单建模'
 
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=self.random_state)
