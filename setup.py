@@ -18,4 +18,7 @@ arg_dict = json.loads(arg_json)
 X = arg_dict.get('X')
 y = arg_dict.get('y')
 
-print(X, y)
+print(type(X))
+print(type(y))
+print(X)
+print(y)
