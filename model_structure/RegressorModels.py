@@ -124,7 +124,7 @@ class MyGBDT(MyRegressor):
 # 8. Bagging Regressor / Bagging回归
 class MyBR(MyRegressor):
     name = "BR"
-    chinese_name = "Bagging回归"
+    chinese_name = "套袋回归"
     english_name = "Bagging Regressor"
     parameters = OrderedDict([
         # 集成模型数量越小越简单
@@ -170,6 +170,40 @@ class MyXGBoost(MyRegressor):
 
 
 def get_regressor_info() -> dict:
+    """
+    获取当前回归器的介绍 name: chinese_name
+    """
+    current_regressor_info_dict = {
+        'chinese': {
+            MyLR.name: MyLR.chinese_name,
+            MyDT.name: MyDT.chinese_name,
+            MySVR.name: MySVR.chinese_name,
+            MyKNN.name: MyKNN.chinese_name,
+            MyRF.name: MyRF.chinese_name,
+            MyAdaboost.name: MyAdaboost.chinese_name,
+            MyGBDT.name: MyGBDT.chinese_name,
+            MyBR.name: MyBR.chinese_name,
+            MyETR.name: MyETR.chinese_name,
+            MyXGBoost.name: MyXGBoost.chinese_name
+        },
+        'english': {
+            MyLR.name: MyLR.english_name,
+            MyDT.name: MyDT.english_name,
+            MySVR.name: MySVR.english_name,
+            MyKNN.name: MyKNN.english_name,
+            MyRF.name: MyRF.english_name,
+            MyAdaboost.name: MyAdaboost.english_name,
+            MyGBDT.name: MyGBDT.english_name,
+            MyBR.name: MyBR.english_name,
+            MyETR.name: MyETR.english_name,
+            MyXGBoost.name: MyXGBoost.english_name
+        }
+    }
+
+    return current_regressor_info_dict
+
+
+def get_regressor_class() -> dict:
     """
     获取当前回归器的介绍信息和类
     """

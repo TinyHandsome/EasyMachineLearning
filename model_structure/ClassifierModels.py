@@ -185,6 +185,40 @@ def get_classifier_info() -> dict:
     获取当前分类器的介绍信息和类
     """
     current_classifier_classes_dict = {
+        'chinese': {
+            MyMNB.name: MyMNB.chinese_name,
+            MyGNB.name: MyGNB.chinese_name,
+            MyKNN.name: MyKNN.chinese_name,
+            MyLR.name: MyLR.chinese_name,
+            MySVM.name: MySVM.chinese_name,
+            MyDT.name: MyDT.chinese_name,
+            MyRF.name: MyRF.chinese_name,
+            MyGBDT.name: MyGBDT.chinese_name,
+            MyXGBoost.name: MyXGBoost.chinese_name,
+            MyAdaboost.name: MyAdaboost.chinese_name
+        },
+        'english': {
+            MyMNB.name: MyMNB.english_name,
+            MyGNB.name: MyGNB.english_name,
+            MyKNN.name: MyKNN.english_name,
+            MyLR.name: MyLR.english_name,
+            MySVM.name: MySVM.english_name,
+            MyDT.name: MyDT.english_name,
+            MyRF.name: MyRF.english_name,
+            MyGBDT.name: MyGBDT.english_name,
+            MyXGBoost.name: MyXGBoost.english_name,
+            MyAdaboost.name: MyAdaboost.english_name
+        }
+    }
+
+    return current_classifier_classes_dict
+
+
+def get_classifier_class() -> dict:
+    """
+    获取当前分类器的介绍信息和类
+    """
+    current_classifier_classes_dict = {
         MyMNB.name: MyMNB,
         MyGNB.name: MyGNB,
         MyKNN.name: MyKNN,

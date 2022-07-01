@@ -147,7 +147,7 @@ class Model(metaclass=ABCMeta):
 class MyClassifier(Model):
     """分类模型"""
     default_scoring = 'accuracy'
-    model_type = '分类'
+    model_type = 'classifier'
     model_metrics = {
         'accuracy': accuracy_score,
         'precision': precision_score,
@@ -159,7 +159,7 @@ class MyClassifier(Model):
 class MyRegressor(Model):
     """回归模型"""
     default_scoring = 'r2'
-    model_type = '回归'
+    model_type = 'regressor'
     model_metrics = {
         'neg_mean_squared_error': mean_squared_error,
         'neg_mean_absolute_error': mean_absolute_error,
