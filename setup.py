@@ -48,3 +48,19 @@ if method_name == 'simple_model':
         result_dict[model_name] = model.simple_model(X, y, model_save_path=model_save_path)
 
     dict_to_json_and_print(result_dict)
+
+if method_name == 'cv_model':
+    """建立交叉验证评估的模型"""
+
+    # 需要出入额外的参数
+    X = arg_dict.get('X')
+    y = arg_dict.get('y')
+    model_save_path = arg_dict.get('model_save_path')
+
+    model_names: list = arg_dict.get('model_names')
+    result_dict = {}
+    for model_name in model_names:
+        model: Model = classifier_classes_dict.get(model_name)
+        result_dict[model_name] = model.cv_model(X, y, model_save_path=model_save_path)
+
+    dict_to_json_and_print(result_dict)

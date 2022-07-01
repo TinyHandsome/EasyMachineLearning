@@ -26,6 +26,13 @@ def test_reg():
     print(result)
 
 
+def test_cv_model():
+    X, y = load_boston(return_X_y=True)
+    reg = MyBR()
+    result = reg.cv_model(X, y)
+    print(result)
+
+
 def test_rname():
     import json
     regressor_classes_dict = get_regressor_info()

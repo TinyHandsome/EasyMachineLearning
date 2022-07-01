@@ -12,8 +12,9 @@
 
 import os
 import joblib
+import numpy as np
 from abc import ABCMeta, abstractmethod
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, mean_squared_error, r2_score, \
     mean_absolute_error
 
@@ -101,8 +102,8 @@ class Model(metaclass=ABCMeta):
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=test_size, random_state=self.random_state)
 
-        clf = self.modeling(X_train, y_train, params)
-        y_pred = clf.predict(X_test)
+        model = self.modeling(X_train, y_train, params)
+        y_pred = model.predict(X_test)
 
         # true_pred = pd.DataFrame({'测试编号': range(len(y_test)), '真实值': y_test, '预测值': y_pred})
         # true_pred.set_index('测试编号', inplace=True)
@@ -122,8 +123,25 @@ class Model(metaclass=ABCMeta):
 
         return dict(result)
 
-    def _model(self, X, y, cv=5, scoring: None or list = None, params=None, model_save_path=None):
+    def cv_model(self, X, y, cv=5, scoring: None or list = None, params=None, model_save_path=None):
         """用默认参数进行建模，用交叉验证进行验证"""
+        prefix = '交叉验证'
+
+        model = self.modeling(X, y, params)
+
+        if scoring is None:
+            scoring = [self.default_scoring]
+
+        result = []
+        for s in scoring:
+            scores = cross_val_score(model, X, y, cv=cv, scoring=s)
+            mean_score = np.mean(scores)
+            result.append((s, mean_score))
+
+        # 生成当前的模型
+        self.modeling(X, y, params, model_save_path, generate_model_name(self.name, prefix))
+
+        return dict(result)
 
 
 class MyClassifier(Model):
