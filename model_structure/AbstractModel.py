@@ -90,7 +90,7 @@ class Model(metaclass=ABCMeta):
 
         return model
 
-    def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None):
+    def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None, **kwargs):
         """
         用默认参数进行建模，划分数据集
         :params: 是否指定参数
@@ -123,7 +123,7 @@ class Model(metaclass=ABCMeta):
 
         return dict(result)
 
-    def cv_model(self, X, y, cv=5, scoring: None or list = None, params=None, model_save_path=None):
+    def cv_model(self, X, y, cv=5, scoring: None or list = None, params=None, model_save_path=None, **kwargs):
         """用默认参数进行建模，用交叉验证进行验证"""
         prefix = '交叉验证'
 

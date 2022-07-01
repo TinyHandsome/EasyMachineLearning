@@ -21,7 +21,7 @@ from xgboost import XGBRegressor
 
 # 1. Linear Regression / 线性回归
 class MyLR(MyRegressor):
-    name = "线性回归"
+    name = "LR"
     chinese_name = "线性回归"
     english_name = "Linear Regression"
     parameters = None
@@ -30,7 +30,7 @@ class MyLR(MyRegressor):
 
 # 2. Decision Tree Regressor / 决策树回归
 class MyDT(MyRegressor):
-    name = "决策树"
+    name = "DT"
     chinese_name = "决策树回归"
     english_name = "DecisionTree Regressor"
     parameters = OrderedDict([
@@ -46,7 +46,7 @@ class MyDT(MyRegressor):
 
 # 3. 支持向量机回归
 class MySVR(MyRegressor):
-    name = "支持向量机回归"
+    name = "SVR"
     chinese_name = "支持向量机"
     english_name = "Support Vector Machine"
     parameters = OrderedDict([
@@ -73,7 +73,7 @@ class MyKNN(MyRegressor):
 
 # 5. Random Forest Regressor / 随机森林回归
 class MyRF(MyRegressor):
-    name = "RandomForestRegressor"
+    name = "RF"
     chinese_name = "随机森林回归"
     english_name = "RandomForest Regressor"
     parameters = OrderedDict([
@@ -123,7 +123,7 @@ class MyGBDT(MyRegressor):
 
 # 8. Bagging Regressor / Bagging回归
 class MyBR(MyRegressor):
-    name = "Bagging回归"
+    name = "BR"
     chinese_name = "Bagging回归"
     english_name = "Bagging Regressor"
     parameters = OrderedDict([
@@ -139,7 +139,7 @@ class MyBR(MyRegressor):
 
 # 9. ExtraTreesRegressor / 极端随机树回归
 class MyETR(MyRegressor):
-    name = "ExtraTrees"
+    name = "ETR"
     chinese_name = "极端梯度提升树"
     english_name = "ExtraTrees Regressor"
     parameters = OrderedDict([
@@ -155,7 +155,7 @@ class MyETR(MyRegressor):
 
 # 10. XGBoost / 极端梯度提升
 class MyXGBoost(MyRegressor):
-    name = "XGBoost"
+    name = "XGB"
     chinese_name = "极端梯度提升树"
     english_name = "XGBoost"
     parameters = OrderedDict([

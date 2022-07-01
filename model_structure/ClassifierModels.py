@@ -35,7 +35,7 @@ from collections import OrderedDict
 
 # 1. Multinomial Naive Bayes Classifier / 多项式朴素贝叶斯
 class MyMNB(MyClassifier):
-    name = "MultinomialNB"
+    name = "MNB"
     chinese_name = "多项式朴素贝叶斯"
     english_name = "Multinomial Naive Bayes Classifier"
     parameters = OrderedDict([
@@ -47,7 +47,7 @@ class MyMNB(MyClassifier):
 
 # 2. Gaussian Naive Bayes Classifier / 高斯朴素贝叶斯
 class MyGNB(MyClassifier):
-    name = "GaussianNB"
+    name = "GNB"
     chinese_name = "高斯朴素贝叶斯"
     english_name = "Gaussian Naive Bayes Classifier"
     # 几乎没有参数可调
@@ -85,7 +85,7 @@ class MyLR(MyClassifier):
 
 # 5. SVM Classifier / 支持向量机
 class MySVM(MyClassifier):
-    name = "支持向量机"
+    name = "SVC"
     chinese_name = "支持向量机"
     english_name = "Support Vector Machine"
     parameters = OrderedDict([
@@ -100,7 +100,7 @@ class MySVM(MyClassifier):
 
 # 6. Decision Tree Classifier / 决策树
 class MyDT(MyClassifier):
-    name = "决策树"
+    name = "DT"
     chinese_name = "决策树"
     english_name = "Decision Tree Classifier"
     parameters = OrderedDict([
@@ -116,7 +116,7 @@ class MyDT(MyClassifier):
 
 # 7. Random Forest Classifier / 随机森林
 class MyRF(MyClassifier):
-    name = "随机森林"
+    name = "RF"
     chinese_name = "随机森林"
     english_name = "Random Forest Classifier"
     parameters = OrderedDict([
@@ -148,7 +148,7 @@ class MyGBDT(MyClassifier):
 
 # 9. XGBoost / 极端梯度提升
 class MyXGBoost(MyClassifier):
-    name = "XGBoost"
+    name = "XGB"
     chinese_name = "极端梯度提升树"
     english_name = "XGBoost"
     parameters = OrderedDict([
