@@ -14,7 +14,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsRegressor
-from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor, BaggingRegressor, ExtraTreesRegressor
+from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor, BaggingRegressor, \
+    ExtraTreesRegressor
 from xgboost import XGBRegressor
 
 
@@ -168,13 +169,25 @@ class MyXGBoost(MyRegressor):
     model = XGBRegressor
 
 
+def get_regressor_info() -> dict:
+    """
+    获取当前回归器的介绍信息和类
+    """
+    current_regressor_classes_dict = {
+        MyLR.name: MyLR,
+        MyDT.name: MyDT,
+        MySVR.name: MySVR,
+        MyKNN.name: MyKNN,
+        MyRF.name: MyRF,
+        MyAdaboost.name: MyAdaboost,
+        MyGBDT.name: MyGBDT,
+        MyBR.name: MyBR,
+        MyETR.name: MyETR,
+        MyXGBoost.name: MyXGBoost
+    }
+
+    return current_regressor_classes_dict
 
 
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    print(get_regressor_info())
