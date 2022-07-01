@@ -10,9 +10,9 @@
 import sys
 import json
 
+from model_structure.AbstractModel import Model
 from model_structure.ClassifierModels import get_classifier_info
 from model_structure.RegressorModels import get_regressor_info
-from model_structure.ClassifierModels import MyRF
 
 arg_json = sys.argv[1]
 arg_dict: dict = json.loads(arg_json)
@@ -32,21 +32,16 @@ if method_name == 'get_regressor_info':
     """获取回归信息"""
     print(regressor_classes_dict.keys())
 
-
 if method_name == 'simple_model':
     """建立简单模型"""
     model_names: list = arg_dict.get('model_names')
-    result_dict = {}
-    for model_name in model_names:
-        ...
-
-
-
-def test1():
     X = arg_dict.get('X')
     y = arg_dict.get('y')
+    model_save_path = arg_dict.get('model_save_path')
 
-    clf = MyRF()
-    print(clf.english_name)
-    result = clf.simple_model(X, y, model_save_path='./')
-    print(result)
+    result_dict = {}
+    for model_name in model_names:
+        model: Model = classifier_classes_dict.get(model_name)
+        result_dict[model_name] = model.simple_model(X, y, model_save_path=model_save_path)
+
+    print(result_dict)
