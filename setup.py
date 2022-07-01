@@ -10,14 +10,15 @@ import json
 import sys
 
 from model_structure.AbstractModel import Model
-from model_structure.ClassifierModels import get_classifier_info
-from model_structure.RegressorModels import get_regressor_info
-from model_structure.utils import dict_to_json_and_print, get_X_y_modelSavePath_modelType_from_args
+from model_structure.ClassifierModels import get_classifier_info, get_classifier_class
+from model_structure.RegressorModels import get_regressor_info, get_regressor_class
+from model_structure.utils import dict_to_json_and_print
 
 arg_json = sys.argv[1]
 arg_dict: dict = json.loads(arg_json)
 
 method_name = arg_dict.get('method_name')
+
 
 if method_name == 'get_classifier_info':
     """获取分类信息"""
@@ -28,6 +29,24 @@ if method_name == 'get_regressor_info':
     """获取回归信息"""
     regressor_classes_info = get_regressor_info()
     dict_to_json_and_print(regressor_classes_info)
+
+
+def get_X_y_modelSavePath_modelType_from_args(args):
+    """获取 简单建模、交叉验证 需要的参数"""
+    X = args.get('X')
+    y = args.get('y')
+    model_save_path = args.get('model_save_path')
+    model_type = args.get('model_type')
+    model_names: list = args.get('model_names')
+
+    model_classes = None
+    if model_type == 'classifier':
+        model_classes = get_classifier_class()
+    elif model_type == 'regressor':
+        model_classes = get_regressor_class()
+
+    return X, y, model_save_path, model_classes, model_names
+
 
 if method_name == 'simple_model':
     """建立简单模型"""

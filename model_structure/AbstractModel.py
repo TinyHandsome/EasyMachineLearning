@@ -90,7 +90,8 @@ class Model(metaclass=ABCMeta):
 
         return model
 
-    def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None, **kwargs):
+    def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None,
+                     **kwargs):
         """
         用默认参数进行建模，划分数据集
         :params: 是否指定参数
@@ -165,3 +166,7 @@ class MyRegressor(Model):
         'neg_mean_absolute_error': mean_absolute_error,
         'r2': r2_score
     }
+
+
+if __name__ == '__main__':
+    print(MyClassifier)
