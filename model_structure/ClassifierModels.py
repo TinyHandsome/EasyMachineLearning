@@ -180,3 +180,25 @@ class MyAdaboost(MyClassifier):
     model = AdaBoostClassifier
 
 
+def get_classifier_info() -> dict:
+    """
+    获取当前分类器的介绍信息和类
+    """
+    current_classifier_classes_dict = {
+        MyMNB.name: MyMNB,
+        MyGNB.name: MyGNB,
+        MyKNN.name: MyKNN,
+        MyLR.name: MyLR,
+        MySVM.name: MySVM,
+        MyDT.name: MyDT,
+        MyRF.name: MyRF,
+        MyGBDT.name: MyGBDT,
+        MyXGBoost.name: MyXGBoost,
+        MyAdaboost.name: MyAdaboost
+    }
+
+    return current_classifier_classes_dict
+
+
+if __name__ == '__main__':
+    print(get_classifier_info())

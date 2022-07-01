@@ -12,9 +12,10 @@
 
 import os
 import joblib
-from abc import ABCMeta, abstractproperty
+from abc import ABCMeta, abstractmethod
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, mean_squared_error, r2_score, mean_absolute_error
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, mean_squared_error, r2_score, \
+    mean_absolute_error
 
 from model_structure.utils import generate_model_name
 
@@ -26,37 +27,52 @@ class Model(metaclass=ABCMeta):
     random_state = 42
 
     # 模型名称
-    @abstractproperty
-    def name(self): ...
+    @property
+    @abstractmethod
+    def name(self):
+        ...
 
     # 模型类型
-    @abstractproperty
-    def model_type(self): ...
+    @property
+    @abstractmethod
+    def model_type(self):
+        ...
 
     # 模型中文名称
-    @abstractproperty
-    def chinese_name(self): ...
+    @property
+    @abstractmethod
+    def chinese_name(self):
+        ...
 
     # 模型英文名称
-    @abstractproperty
-    def english_name(self): ...
+    @property
+    @abstractmethod
+    def english_name(self):
+        ...
 
     # 模型参数
-    @abstractproperty
-    def parameters(self): ...
+    @property
+    @abstractmethod
+    def parameters(self):
+        ...
 
     # 模型默认评价指标
-    @abstractproperty
-    def default_scoring(self): ...
+    @property
+    @abstractmethod
+    def default_scoring(self):
+        ...
 
     # 模型的类
-    @abstractproperty
-    def model(self): ...
+    @property
+    @abstractmethod
+    def model(self):
+        ...
 
     # 支持的metrics
-    @abstractproperty
-    def model_metrics(self): ...
-
+    @property
+    @abstractmethod
+    def model_metrics(self):
+        ...
 
     def modeling(self, X, y, params=None, model_save_path=None, model_save_name=None):
         """【建模】
@@ -72,7 +88,6 @@ class Model(metaclass=ABCMeta):
                 joblib.dump(model, f)
 
         return model
-
 
     def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None):
         """
