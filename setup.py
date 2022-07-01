@@ -17,7 +17,7 @@ from model_structure.RegressorModels import get_regressor_info
 arg_json = sys.argv[1]
 arg_dict: dict = json.loads(arg_json)
 
-method_name = arg_dict.get('flag')
+method_name = arg_dict.get('method_name')
 
 # 获取分类器信息
 classifier_classes_dict = get_classifier_info()
@@ -34,11 +34,13 @@ if method_name == 'get_regressor_info':
 
 if method_name == 'simple_model':
     """建立简单模型"""
-    model_names: list = arg_dict.get('model_names')
+
+    # 需要出入额外的参数
     X = arg_dict.get('X')
     y = arg_dict.get('y')
     model_save_path = arg_dict.get('model_save_path')
 
+    model_names: list = arg_dict.get('model_names')
     result_dict = {}
     for model_name in model_names:
         model: Model = classifier_classes_dict.get(model_name)

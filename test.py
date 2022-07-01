@@ -2,16 +2,16 @@ from sklearn.datasets import load_iris
 from sklearn.datasets import load_boston
 
 from model_structure.ClassifierModels import MyAdaboost
-from model_structure.RegressorModels import MyBR
+from model_structure.RegressorModels import MyBR, get_regressor_info
 from model_structure.utils import predict_from_model
 
 
 def test_clf():
-
     X, y = load_iris(return_X_y=True, as_frame=True)
     clf = MyAdaboost()
     result = clf.simple_model(X, y, model_save_path='./save_models/')
     print(result)
+
 
 def test_clf_predict():
     path = './save_models/[2022-06-30 17-14-29] simple_model_Adaboost.model'
@@ -26,4 +26,6 @@ def test_reg():
     print(result)
 
 
-test_clf_predict()
+def test_cname():
+    regressor_classes_dict = get_regressor_info()
+    print(regressor_classes_dict.keys())

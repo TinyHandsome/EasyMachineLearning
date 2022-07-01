@@ -122,6 +122,9 @@ class Model(metaclass=ABCMeta):
 
         return dict(result)
 
+    def _model(self, X, y, cv=5, scoring: None or list = None, params=None, model_save_path=None):
+        """用默认参数进行建模，用交叉验证进行验证"""
+
 
 class MyClassifier(Model):
     """分类模型"""
