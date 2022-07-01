@@ -26,11 +26,11 @@ regressor_classes_dict = get_regressor_info()
 
 if method_name == 'get_classifier_info':
     """获取分类信息"""
-    print(classifier_classes_dict.keys())
+    print({'classifier_names': list(classifier_classes_dict.keys())})
 
 if method_name == 'get_regressor_info':
     """获取回归信息"""
-    print(regressor_classes_dict.keys())
+    print({'regressor_names': list(regressor_classes_dict.keys())})
 
 if method_name == 'simple_model':
     """建立简单模型"""

@@ -26,6 +26,7 @@ def test_reg():
     print(result)
 
 
-def test_cname():
+def test_rname():
+    import json
     regressor_classes_dict = get_regressor_info()
-    print(regressor_classes_dict.keys())
+    print({'regressor_names': list(regressor_classes_dict.keys())})
