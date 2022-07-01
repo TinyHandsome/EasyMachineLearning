@@ -16,12 +16,13 @@ from model_structure.ClassifierModels import MyRF
 arg_json = sys.argv[1]
 arg_dict: dict = json.loads(arg_json)
 
-flag = arg_dict.get('flag')
+method_name = arg_dict.get('flag')
 
 # 获取分类器信息
 classifier_classes_dict = get_classifier_info()
 
-if flag == 'get_classifier_info':
+if method_name == 'get_classifier_info':
+    """获取分类信息"""
     print(classifier_classes_dict.keys())
 
 
