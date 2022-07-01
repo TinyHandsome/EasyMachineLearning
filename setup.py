@@ -13,6 +13,7 @@ import json
 from model_structure.AbstractModel import Model
 from model_structure.ClassifierModels import get_classifier_info
 from model_structure.RegressorModels import get_regressor_info
+from model_structure.utils import dict_to_json_and_print
 
 arg_json = sys.argv[1]
 arg_dict: dict = json.loads(arg_json)
@@ -26,11 +27,11 @@ regressor_classes_dict = get_regressor_info()
 
 if method_name == 'get_classifier_info':
     """获取分类信息"""
-    print({'classifier_names': list(classifier_classes_dict.keys())})
+    dict_to_json_and_print({'classifier_names': list(classifier_classes_dict.keys())})
 
 if method_name == 'get_regressor_info':
     """获取回归信息"""
-    print({'regressor_names': list(regressor_classes_dict.keys())})
+    dict_to_json_and_print({'regressor_names': list(regressor_classes_dict.keys())})
 
 if method_name == 'simple_model':
     """建立简单模型"""
@@ -46,4 +47,4 @@ if method_name == 'simple_model':
         model: Model = classifier_classes_dict.get(model_name)
         result_dict[model_name] = model.simple_model(X, y, model_save_path=model_save_path)
 
-    print(result_dict)
+    dict_to_json_and_print(result_dict)
