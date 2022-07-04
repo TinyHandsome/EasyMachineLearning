@@ -23,7 +23,7 @@ from model_structure.utils import dict_to_json_and_print
 # arg_dict = {
 #     "X": X,
 #     "y": y,
-#     "model_save_path": "./",
+#     "model_save_path": "./save_models/",
 #     "model_type": "classifier",
 #     "model_names": ["MNB", "GNB", "KNN", "LR", "SVC", "DT", "RF", "GBDT", "XGB", "Adaboost"]
 # }
@@ -34,9 +34,11 @@ from model_structure.utils import dict_to_json_and_print
 # arg_dict = {
 #     "X": X,
 #     "y": y,
-#     "model_save_path": "./",
+#     "model_save_path": "./save_models/",
 #     "model_type": "regressor",
-#     "model_names": ["LR", "DT", "SVR", "KNN", "RF", "Adaboost", "GBDT", "BR", "ETR", "XGB"]
+#     "model_names": ["LR", "DT", "SVR", "KNN", "RF", "Adaboost", "GBDT", "BR", "ETR", "XGB"],
+#     "other1": '1',
+#     "other2": '2'
 # }
 
 # 参数获取部分，测试要注释这部分代码
@@ -56,12 +58,19 @@ if method_name == 'get_regressor_info':
 
 
 def get_X_y_modelSavePath_modelType_from_args(args):
-    """获取 简单建模、交叉验证 需要的参数"""
-    X = args.get('X')
-    y = args.get('y')
-    model_save_path = args.get('model_save_path')
-    model_type = args.get('model_type')
-    model_names: list = args.get('model_names')
+    """获取 简单建模、交叉验证 需要的参数
+    常用的必备特征
+        1. X
+        2. y
+        3. model_save_path: 模型保存路径
+        4. model_type: 模型类型，classifier/regressor，根据类获取对应类型的任务模型类字典
+        5. model_nams: 模型名称
+    """
+    X = args.pop('X')
+    y = args.pop('y')
+    model_save_path = args.pop('model_save_path')
+    model_type = args.pop('model_type')
+    model_names: list = args.pop('model_names')
 
     model_classes = None
     if model_type == 'classifier':
@@ -69,18 +78,19 @@ def get_X_y_modelSavePath_modelType_from_args(args):
     elif model_type == 'regressor':
         model_classes = get_regressor_class()
 
-    return X, y, model_save_path, model_classes, model_names
+    return X, y, model_save_path, model_classes, model_names, args
 
 
 # 建模集合
 if method_name in ['simple_model', 'cv_model', 'param_search_model']:
-    """建立
-        【简单模型】
-        【交叉验证评估的模型】
-        【建立网格搜索的模型，也可能是其他搜索，以后再补充】
+    """建模，每个模型有对应的可能的额外参数
+        1. 简单模型
+        2. 交叉验证评估的模型
+        3. 建立网格搜索的模型，也可能是其他搜索，以后再补充
+            1. parameters_dict: 参数的字典
     """
     # 需要出入额外的参数
-    X, y, model_save_path, model_classes, model_names = get_X_y_modelSavePath_modelType_from_args(arg_dict)
+    X, y, model_save_path, model_classes, model_names, kwargs = get_X_y_modelSavePath_modelType_from_args(arg_dict)
     # 处理X和y为Array类型的数据
     X = np.array(X)
     y = np.array(y)
@@ -90,7 +100,7 @@ if method_name in ['simple_model', 'cv_model', 'param_search_model']:
         MyModel = model_classes.get(model_name)
         model = MyModel()
         method_model = getattr(model, method_name)
-        result_dict[model_name] = method_model(X=X, y=y, model_save_path=model_save_path)
+        result_dict[model_name] = method_model(X=X, y=y, model_save_path=model_save_path, kwargs=kwargs)
 
     dict_to_json_and_print(result_dict)
 

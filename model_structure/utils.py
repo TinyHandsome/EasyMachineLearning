@@ -27,6 +27,12 @@ def dict_to_json_and_print(result):
     print(json_result)
 
 
+def get_json_attribute(json_dict, attr):
+    """获取json数据中的对应的值"""
+    my_dict = json.loads(json_dict)
+    return my_dict.get(attr)
+
+
 # 模型处理
 def predict_from_model(model_path, X):
     """【选择模型的路径，进行预测】默认joblib
