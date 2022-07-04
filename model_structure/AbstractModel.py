@@ -22,7 +22,7 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 # import warnings
 # warnings.filterwarnings('ignore')
 
-from model_structure.utils import generate_model_name
+from model_structure.utils import generate_file_name
 
 
 class Model(metaclass=ABCMeta):
@@ -133,7 +133,7 @@ class Model(metaclass=ABCMeta):
             result.append((s, s_func(y_test, y_pred)))
 
         # 生成当前的模型
-        self.modeling(X, y, params, model_save_path, generate_model_name(self.name, prefix))
+        self.modeling(X, y, params, model_save_path, generate_file_name(self.name, prefix))
 
         return dict(result)
 
@@ -152,7 +152,7 @@ class Model(metaclass=ABCMeta):
             result.append((s, mean_score))
 
         # 生成当前的模型
-        self.modeling(X, y, params, model_save_path, generate_model_name(self.name, prefix))
+        self.modeling(X, y, params, model_save_path, generate_file_name(self.name, prefix))
 
         return dict(result)
 
@@ -183,7 +183,7 @@ class Model(metaclass=ABCMeta):
             pp_prefix = '(scoring:' + s + ')' + prefix
 
             # 生成不同评价指标的最优参数模型
-            self.save_model_by_joblib(grid.best_estimator_, model_save_path, generate_model_name(self.name, pp_prefix))
+            self.save_model_by_joblib(grid.best_estimator_, model_save_path, generate_file_name(self.name, pp_prefix))
 
         return dict(result)
 

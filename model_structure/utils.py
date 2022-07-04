@@ -14,11 +14,11 @@ import joblib
 
 
 # 常见处理
-def generate_model_name(model_name, prefix=''):
+def generate_file_name(name, prefix='', suffix='model'):
     """【保存】生成模型的名称"""
     current_time = time.strftime('%Y-%m-%d %H-%M-%S', time.localtime())
-    name = '[' + current_time + '] ' + prefix + '_' + model_name + '.model'
-    return name
+    result_name = '[' + current_time + '] ' + prefix + '_' + name + '.' + suffix
+    return result_name
 
 
 def dict_to_json_and_print(result):
@@ -44,4 +44,4 @@ def predict_from_model(model_path, X):
 
 
 if __name__ == '__main__':
-    generate_model_name('a')
+    generate_file_name('a')
