@@ -14,9 +14,13 @@ import os
 import joblib
 import numpy as np
 from abc import ABCMeta, abstractmethod
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, mean_squared_error, r2_score, \
     mean_absolute_error
+
+# 禁用警告显示
+# import warnings
+# warnings.filterwarnings('ignore')
 
 from model_structure.utils import generate_model_name
 
@@ -79,16 +83,25 @@ class Model(metaclass=ABCMeta):
         """【建模】
         :return: 返回训练的模型
         """
-        model = self.model(random_state=self.random_state)
+        # 不是所有的模型都可以设置随机种子
+        try:
+            model = self.model(random_state=self.random_state)
+        except Exception as e:
+            model = self.model()
+
         if params is not None:
             model.set_params(**params)
         model.fit(X, y)
 
+        self.save_model_by_joblib(model, model_save_path, model_save_name)
+
+        return model
+
+    def save_model_by_joblib(self, model, model_save_path, model_save_name):
+        """保存模型"""
         if model_save_path is not None:
             with open(os.path.join(model_save_path, model_save_name), 'wb') as f:
                 joblib.dump(model, f)
-
-        return model
 
     def simple_model(self, X, y, test_size=0.33, scoring: None or list = None, params=None, model_save_path=None,
                      **kwargs):
@@ -129,7 +142,6 @@ class Model(metaclass=ABCMeta):
         prefix = '交叉验证'
 
         model = self.modeling(X, y, params)
-
         if scoring is None:
             scoring = [self.default_scoring]
 
@@ -141,6 +153,37 @@ class Model(metaclass=ABCMeta):
 
         # 生成当前的模型
         self.modeling(X, y, params, model_save_path, generate_model_name(self.name, prefix))
+
+        return dict(result)
+
+    def param_search_model(self, X, y, cv=5, scoring: None or list = None, params=None, model_save_path=None, **kwargs):
+        """用【网格搜索】交叉验证的方式进行建模"""
+        prefix = '网格搜索'
+
+        model = self.modeling(X, y, params)
+        if scoring is None:
+            scoring = [self.default_scoring]
+
+        # 获取调参信息
+        parameters_dict = kwargs.get('parameters_dict')
+        if parameters_dict is None:
+            parameters_dict = self.parameters
+
+        result = []
+        for s in scoring:
+            grid = GridSearchCV(model, parameters_dict, cv=cv, scoring=s, return_train_score=True)
+            grid.fit(X, y)
+
+            # 保存调参信息
+            # cv_results = pd.DataFrame(grid.cv_results_)
+            # cv_results.to_excel(save_path_name, index_label='编号')
+
+            result.append((s, {'best_params': grid.best_params_, 'best_score': grid.best_score_}))
+
+            pp_prefix = '(scoring:' + s + ')' + prefix
+
+            # 生成不同评价指标的最优参数模型
+            self.save_model_by_joblib(grid.best_estimator_, model_save_path, generate_model_name(self.name, pp_prefix))
 
         return dict(result)
 
@@ -169,4 +212,4 @@ class MyRegressor(Model):
 
 
 if __name__ == '__main__':
-    print(MyClassifier)
+    print(MyClassifier.__class__.__bases__[0].__dict__)

@@ -34,6 +34,5 @@ def test_cv_model():
 
 
 def test_rname():
-    import json
     regressor_classes_dict = get_regressor_info()
     print({'regressor_names': list(regressor_classes_dict.keys())})
